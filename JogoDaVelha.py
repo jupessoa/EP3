@@ -50,12 +50,13 @@ class JogoDaVelha:
         elif self.tabuleiro[0][2] == 1 and self.tabuleiro[1][1] == 1 and self.tabuleiro[2][0] == 1:
             return 1
         elif self.tabuleiro[0][2] == 2 and self.tabuleiro[1][1] == 2 and self.tabuleiro[2][0] == 2:
-            return 2
-        else:
-            return 0
+            return 2    
         return -1
         
     def limpa_jogadas(self):
         fim = self.verifica_ganhador()
         if fim == 1 or fim == 2 or fim == 0:
-            self.tabuleiro = np.zeros([3, 3])            
+            self.tabuleiro = np.zeros([3, 3]) 
+            return True
+        else:
+            return False
