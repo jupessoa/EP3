@@ -8,11 +8,12 @@ import numpy as np
 
 class JogoDaVelha:
     def __init__(self):
-        self.tabuleiro = np.zeros([3, 3])
-        self.jogador = 1
+        self.limpa_jogadas()
         
     def recebe_jogada(self, linha, coluna):
         self.tabuleiro[linha][coluna]=self.jogador
+        self.conta_jogadas += 1
+        
         if self.jogador == 1:
             self.jogador = 2
         else:
@@ -50,13 +51,16 @@ class JogoDaVelha:
         elif self.tabuleiro[0][2] == 1 and self.tabuleiro[1][1] == 1 and self.tabuleiro[2][0] == 1:
             return 1
         elif self.tabuleiro[0][2] == 2 and self.tabuleiro[1][1] == 2 and self.tabuleiro[2][0] == 2:
-            return 2    
-        return -1
-        
-    def limpa_jogadas(self):
-        fim = self.verifica_ganhador()
-        if fim == 1 or fim == 2 or fim == 0:
-            self.tabuleiro = np.zeros([3, 3]) 
-            return True
+            return 2
+        elif self.conta_jogadas == 9:
+            return 0
         else:
-            return False
+            return -1
+        
+            
+    def limpa_jogadas(self):
+        self.tabuleiro = np.zeros([3, 3])
+        self.conta_jogadas = 0
+        self.jogador = 1
+        
+    

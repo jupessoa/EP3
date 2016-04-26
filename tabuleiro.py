@@ -7,14 +7,14 @@ from JogoDaVelha import JogoDaVelha
 class Tabuleiro:
     def __init__(self):
         self.jogo = JogoDaVelha()
-        self.jogo.limpa_jogadas()        
         
         self.window = tk.Tk()
-        self.window.geometry("300x350+100+100")
+        self.window.geometry("300x400+100+100")
         self.window.rowconfigure(0, minsize=100)
         self.window.rowconfigure(1, minsize=100)
         self.window.rowconfigure(2, minsize=100)
         self.window.rowconfigure(3, minsize=50)
+        self.window.rowconfigure(4, minsize=50)
         self.window.columnconfigure(0, minsize=100)
         self.window.columnconfigure(1, minsize=100)
         self.window.columnconfigure(2, minsize=100)
@@ -22,6 +22,10 @@ class Tabuleiro:
         self.chama_jogador = tk.Label(self.window)
         self.chama_jogador.grid(row=3, column=0, columnspan=3, sticky="nsew")
         self.chama_jogador.configure(text="Jogador X")
+        
+        self.aviso = tk.Label(self.window)
+        self.aviso.grid(row=4, column=0, columnspan=3, sticky="nsew")
+        self.aviso.configure(text="")
         
         self.botao1 = tk.Button(self.window)
         self.botao1.configure(command=self.botao1_clicado)
@@ -69,7 +73,7 @@ class Tabuleiro:
             self.botao1.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(0,0)
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
             
     def botao2_clicado(self):
@@ -82,7 +86,7 @@ class Tabuleiro:
             self.botao2.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(0,1) 
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
             
             
@@ -96,7 +100,7 @@ class Tabuleiro:
             self.botao3.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(0,2)
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
             
     def botao4_clicado(self):
@@ -109,7 +113,7 @@ class Tabuleiro:
             self.botao4.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(1,0)    
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
             
     def botao5_clicado(self):
@@ -122,7 +126,7 @@ class Tabuleiro:
             self.botao5.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(1,1)
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
             
     def botao6_clicado(self):
@@ -135,7 +139,7 @@ class Tabuleiro:
             self.botao6.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(1,2)
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
        
     def botao7_clicado(self):
@@ -148,7 +152,7 @@ class Tabuleiro:
             self.botao7.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(2,0)   
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
             
     def botao8_clicado(self):
@@ -161,7 +165,7 @@ class Tabuleiro:
             self.botao8.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(2,1)
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
             
     def botao9_clicado(self):
@@ -174,7 +178,7 @@ class Tabuleiro:
             self.botao9.configure(text="O")
             self.chama_jogador.configure(text="Jogador X")
             self.jogo.recebe_jogada(2,2)
-        if self.jogo.limpa_jogadas():
+        if self.jogo.verifica_ganhador() != -1:
             self.zerar_jogo()
         
     def iniciar(self):
@@ -190,8 +194,18 @@ class Tabuleiro:
         self.botao7.configure(text="")
         self.botao8.configure(text="")
         self.botao9.configure(text="")
+        fim = self.jogo.verifica_ganhador()
+        if fim == 1:
+            self.aviso.configure(text="JOGADOR X VENCEDOR!!!")
+        elif fim == 2:
+            self.aviso.configure(text="JOGADOR O VENCEDOR!!!")
+        else:
+            self.aviso.configure(text="EMPATE...")
+        self.chama_jogador.configure(text="Jogador X")
+        self.jogo.limpa_jogadas()
+            
+
+        
         
 app = Tabuleiro()
-app.iniciar()
-    
-        
+app.iniciar()     
